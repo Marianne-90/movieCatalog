@@ -1,9 +1,31 @@
-<p>movies works!</p>
-<div>
-  <ul>
-    <li>
-      <app-movie [movie]="movies"></app-movie>
-    </li>
-  </ul>
-
-</div >
+<button class="btn btn-primary me-2 m-2">Crear película</button>
+<table class="table table-striped" style="min-height: calc(100vh - 150px)">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">Título</th>
+      <th scope="col">Sinopsis</th>
+      <th scope="col">Año</th>
+      <th scope="col">Portada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ movie.id }}</td>
+      <td>
+        <a [routerLink]="['/movies', movie.id]">{{ movie.title }}</a>
+      </td>
+      <td>{{ movie.synopsis }}</td>
+      <td>{{ movie.year }}</td>
+      <td>
+        <img
+          [src]="getCoverUrl(movie.cover)"
+          alt="{{ movie.title }}"
+          width="50"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
