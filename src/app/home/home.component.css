@@ -1,0 +1,21 @@
+.homeMain {
+  background: url("../../assets/fondo.png") no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+.homeMain .container {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.homeMain main {
+  min-height: 40vh;
+}
+
+.homeMain h1,
+.homeMain h2 {
+  font-family: "Pacifico", serif;
+  font-weight: 400;
+  font-style: normal;
+  color: rgb(250, 206, 209);
+}

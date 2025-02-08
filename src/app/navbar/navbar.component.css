@@ -1,0 +1,17 @@
+/*.nav-item.active .nav-link {
+      color: red !important; /*
+    }*/
+
+.navbar {
+  background-color: #000000 !important;
+}
+
+.nav-item.active {
+  background-color: rgb(228, 8, 144);
+}
+
+.navbar .navbar-brand {
+  font-family: "Pacifico", serif;
+  font-weight: 400;
+  font-style: normal;
+}
