@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieComponent } from '../movie/movie.component';
 import { MovieService } from '../movie.service';
 import { Movie } from '../movie.service'; // Importa la interfaz Movie
 import { CommonModule } from '@angular/common'; // Importa CommonModule
@@ -8,7 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [MovieComponent, CommonModule, RouterLink], // Agrega CommonModule
+  imports: [CommonModule, RouterLink], // Agrega CommonModule
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css',
 })

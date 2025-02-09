@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs'; // Importa throwError
-import { catchError, map } from 'rxjs/operators'; // Importa operadores
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 // Define una interfaz para tipar la respuesta de la API
 export interface Movie {
@@ -39,16 +39,36 @@ export class MovieService {
     );
   }
 
-  createMovie(movie: Movie): Observable<Movie> {
+  createMovie(movie: Movie, cover: File | null): Observable<Movie> {
+    const formData = new FormData();
+    formData.append('title', movie.title);
+    formData.append('synopsis', movie.synopsis);
+    formData.append('year', movie.year.toString());
+    if (cover) {
+      formData.append('cover', cover, cover.name);
+    }
+
     return this.http
-      .post<Movie>(`${this.apiUrl}movies`, movie)
+      .post<Movie>(`${this.apiUrl}movies`, formData)
       .pipe(catchError(this.handleError));
   }
 
-  updateMovie(id: number, movie: Movie): Observable<Movie> {
+  updateMovie(id: number, movie: Movie, cover: File | null): Observable<Movie> {
+    const formData = new FormData();
+    formData.append('title', movie.title);
+    formData.append('synopsis', movie.synopsis);
+    formData.append('year', movie.year.toString());
+    if (cover) {
+      formData.append('cover', cover, cover.name);
+    }
+    formData.append('_method', 'PUT'); // Simula PUT con POST
+
     return this.http
-      .put<Movie>(`${this.apiUrl}movies/${id}`, movie)
-      .pipe(catchError(this.handleError));
+      .post<{ data: Movie }>(`${this.apiUrl}movies/${id}`, formData) // Tipa la respuesta como { data: Movie }
+      .pipe(
+        map((response) => response.data), // Extrae la película del objeto data
+        catchError(this.handleError)
+      );
   }
 
   deleteMovie(id: number): Observable<void> {
@@ -59,16 +79,16 @@ export class MovieService {
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
-      // Un error del lado del cliente o de la red ocurrió. Manejarlo apropiadamente.
+      // Un error del lado del cliente o de la red ocurrió.
       console.error('An error occurred:', error.error.message);
     } else {
-      // El backend retornó un código de respuesta no exitoso.
-      // El cuerpo de la respuesta puede contener pistas sobre lo que salió mal.
       console.error(
         `Backend returned code ${error.status}, body was: ${error.error}`
       );
+
+      return throwError(() => new Error(`${error.error}`));
     }
-    // Retornar un Observable con un mensaje de error amigable para el usuario.
+
     return throwError(
       () =>
         new Error('Algo salió mal. Por favor, inténtalo de nuevo más tarde.')

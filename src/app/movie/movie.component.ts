@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from '../movie.service';
-import { Movie } from '../movie.service';
-import { FormsModule } from '@angular/forms';
+import { MovieService, Movie } from '../movie.service';
 import { CommonModule } from '@angular/common';
+import { EditMovieComponent } from '../edit-movie/edit-movie.component';
 
 @Component({
   selector: 'app-movie',
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.css',
-  imports: [FormsModule, CommonModule],
+  imports: [CommonModule, EditMovieComponent],
 })
 export class MovieComponent implements OnInit {
   movie: Movie | undefined;
@@ -45,26 +44,11 @@ export class MovieComponent implements OnInit {
     return `http://localhost:80/tareas/catalogo/public/img/${cover}`;
   }
 
-  toggleEditing() {
-    this.isEditing = !this.isEditing;
-
-    if (this.isEditing) {
-      // Clona el objeto movie para no modificar el original mientras se edita
-      this.movieEdit = { ...this.movie };
-    } else {
-      console.log('editando');
-    }
-  }
-
-  onFileChange(event: any) {
-    this.cover = event.target.files[0];
-  }
-
-  deleteMovie() {
-    console.log('eliminando');
-  }
-
   goBack() {
     this.router.navigate(['/movies']); // Navega a la ruta /movies
+  }
+
+  onMovieUpdated(updatedMovie: Movie) {
+    this.movie = updatedMovie;
   }
 }
