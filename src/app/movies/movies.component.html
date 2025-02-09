@@ -1,5 +1,26 @@
 <main style="min-height: calc(100vh - 100px)" class="p-4">
-  <button class="btn btn-primary me-2 m-4">Crear película</button>
+  <button class="btn btn-primary mb-4" (click)="openModal(addMovieModal)">
+    Añadir Película
+  </button>
+
+  <ng-template #addMovieModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Añadir Película</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <app-add-movie
+        (movieCreated)="onMovieCreated($event)"
+        (modalClosed)="onModalClosed()"
+      ></app-add-movie>
+    </div>
+  </ng-template>
+
   <table class="table table-striped table-rounded table-dark">
     <thead>
       <tr>
@@ -28,7 +49,7 @@
           <img
             [src]="getCoverUrl(movie.cover)"
             alt="{{ movie.title }}"
-            width="50"
+            width="150"
           />
         </td>
       </tr>

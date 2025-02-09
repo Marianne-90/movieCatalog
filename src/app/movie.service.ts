@@ -49,8 +49,11 @@ export class MovieService {
     }
 
     return this.http
-      .post<Movie>(`${this.apiUrl}movies`, formData)
-      .pipe(catchError(this.handleError));
+      .post<{ data: Movie }>(`${this.apiUrl}movies`, formData) // Tipa la respuesta como { data: Movie }
+      .pipe(
+        map((response) => response.data), // Extrae la película del objeto data
+        catchError(this.handleError)
+      );
   }
 
   updateMovie(id: number, movie: Movie, cover: File | null): Observable<Movie> {
@@ -85,6 +88,8 @@ export class MovieService {
       console.error(
         `Backend returned code ${error.status}, body was: ${error.error}`
       );
+
+      console.log(error.error);
 
       return throwError(() => new Error(`${error.error}`));
     }

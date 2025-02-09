@@ -1,1 +1,101 @@
-<p>add-movie works!</p>
+<form [formGroup]="movieForm" (ngSubmit)="addMovie()">
+  <div class="mb-3">
+    <label for="title" class="form-label">Título</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      formControlName="title"
+    />
+    <div
+      *ngIf="
+        movieForm.get('title')?.invalid &&
+        (movieForm.get('title')?.dirty || movieForm.get('title')?.touched)
+      "
+    >
+      <div *ngIf="movieForm.get('title')?.errors?.['required']">
+        El título es obligatorio.
+      </div>
+      <div *ngIf="movieForm.get('title')?.errors?.['minlength']">
+        El título debe tener al menos 3 caracteres.
+      </div>
+      <div *ngIf="movieForm.get('title')?.errors?.['maxlength']">
+        El título no debe tener más de 150 caracteres.
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="synopsis" class="form-label">Sinopsis</label>
+    <textarea
+      class="form-control"
+      id="synopsis"
+      formControlName="synopsis"
+    ></textarea>
+    <div
+      *ngIf="
+        movieForm.get('synopsis')?.invalid &&
+        (movieForm.get('synopsis')?.dirty || movieForm.get('synopsis')?.touched)
+      "
+    >
+      <div *ngIf="movieForm.get('synopsis')?.errors?.['required']">
+        La sinopsis es obligatoria.
+      </div>
+      <div *ngIf="movieForm.get('synopsis')?.errors?.['minlength']">
+        La sinopsis debe tener al menos 3 caracteres.
+      </div>
+      <div *ngIf="movieForm.get('synopsis')?.errors?.['maxlength']">
+        La sinopsis no debe tener más de 300 caracteres.
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="year" class="form-label">Año</label>
+    <input
+      type="number"
+      class="form-control"
+      id="year"
+      formControlName="year"
+    />
+    <div
+      *ngIf="
+        movieForm.get('year')?.invalid &&
+        (movieForm.get('year')?.dirty || movieForm.get('year')?.touched)
+      "
+    >
+      <div *ngIf="movieForm.get('year')?.errors?.['min']">
+        El año debe ser como mínimo 1400.
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="cover" class="form-label">Imagen de portada</label>
+    <input
+      class="form-control"
+      type="file"
+      id="cover"
+      (change)="onFileChange($event)"
+      formControlName="cover"
+    />
+    <div
+      *ngIf="
+        movieForm.get('cover')?.invalid &&
+        (movieForm.get('cover')?.dirty || movieForm.get('cover')?.touched)
+      "
+    >
+      <div *ngIf="movieForm.get('cover')?.errors?.['required']">
+        La imagen es obligatoria.
+      </div>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary me-2"
+    [disabled]="movieForm.invalid"
+  >
+    Guardar
+  </button>
+  <button type="button" class="btn btn-secondary me-2" (click)="closeModal()">
+    Cancelar
+  </button>
+</form>

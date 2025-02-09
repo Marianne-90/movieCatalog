@@ -32,8 +32,6 @@ export class EditMovieComponent {
     if (this.isEditing && this.movie?.id) {
       this.movieEdit = { ...this.movie };
     } else if (!this.isEditing && this.movie?.id) {
-      console.log('película para actualizar', this.movieEdit, this.movie);
-
       // Guardar los cambios
       const updatedMovie = { ...this.movie, ...this.movieEdit }; // Fuciona los cambios con la película original
       if (this.cover) {
@@ -43,7 +41,6 @@ export class EditMovieComponent {
             next: (response) => {
               this.movieUpdated.emit(response); // Emite la película actualizada
               this.toastr.success('¡Película actualizada!', 'Éxito'); // Mensaje de éxito
-              console.log('Película actualizada:', response);
             },
             error: (error) => {
               console.error('Error al actualizar la película:', error);
@@ -57,7 +54,6 @@ export class EditMovieComponent {
             next: (response) => {
               this.movieUpdated.emit(response); // Emite la película actualizada
               this.toastr.success('¡Película actualizada!', 'Éxito'); // Mensaje de éxito
-              console.log('Película actualizada:', response);
             },
             error: (error) => {
               this.toastr.error(error, 'Error');
@@ -76,7 +72,6 @@ export class EditMovieComponent {
     if (this.movie?.id) {
       this.movieService.deleteMovie(this.movie.id).subscribe({
         next: () => {
-          console.log('Película eliminada');
           this.toastr.success('¡Película eliminada!', 'Éxito');
           this.movieDeleted.emit(); // Emitir el evento al eliminar
         },

@@ -32,7 +32,6 @@ export class MovieComponent implements OnInit {
     this.movieService.getMovie(id).subscribe({
       next: (movie) => {
         this.movie = movie;
-        console.log('Película:', this.movie);
       },
       error: (error) => {
         console.error('Error al obtener la película:', error);
