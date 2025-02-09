@@ -1,3 +1,15 @@
 .footer {
   background: rgb(255, 0, 128);
+  padding: 20px;
+}
+
+.footer-section {
+  flex: 1;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  .footer-section {
+    margin-bottom: 0;
+  }
 }

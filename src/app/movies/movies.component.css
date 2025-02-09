@@ -1,0 +1,24 @@
+.link-primary {
+  color: rgb(255, 0, 128) !important;
+}
+
+.btn-primary {
+  background-color: rgb(255, 0, 128) !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: rgb(156, 1, 79) !important;
+  border: none !important;
+}
+main {
+  background: url("../../assets/fondo.png") no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.table-rounded {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
