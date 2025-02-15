@@ -18,7 +18,7 @@ export interface Movie {
   providedIn: 'root',
 })
 export class MovieService {
-  private apiUrl = 'http://localhost/tareas/catalogo/public/api/';
+  private apiUrl = 'https://catalogo-mtml.onrender.com/api/';
   constructor(private http: HttpClient) {}
 
   getMovies(): Observable<Movie[]> {

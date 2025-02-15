@@ -38,7 +38,7 @@ export class MoviesComponent implements OnInit {
   }
 
   getCoverUrl(cover: string): string {
-    return `http://localhost:80/tareas/catalogo/public/img/${cover}`;
+    return `https://catalogo-mtml.onrender.com/img/${cover}`;
   }
 
   openModal(content: any) {
